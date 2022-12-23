@@ -15,7 +15,7 @@ def news_on_topic(topic):
   url = 'https://newsapi.org/v2/everything?'
   parameters = {
     'q': topic,
-    'pageSize': 5,  # maximum is 100
+    'pageSize': 10,  
     'apiKey': "4dbc17e007ab436fb66416009dfb59a8"
  
    }
@@ -47,7 +47,7 @@ def weather(city):
      current_humidity = y["humidity"]
      z = x["weather"]
      weather_description = z[0]["description"]
-     #current_temperature=current_temperature-273.15
+     current_temperature=current_temperature-273.15
   return current_temperature,current_pressure,current_humidity,weather_description
   
 @client.event
@@ -70,8 +70,8 @@ async def on_message(message):
     
     
     temp,atmospheric_pressure,humidity,description=weather(city)
-    await message.channel.send("City name: "+ str(city))
-    await message.channel.send(" Temperature (in kelvin unit) = "+str(temp))
+    await message.channel.send("City name: "+ str(city).title())
+    await message.channel.send(" Temperature (in celsius) = "+str("{:.2f}".format(temp)))
     await message.channel.send("\n Atmospheric pressure (in hPa unit) = "+str(atmospheric_pressure))
     await message.channel.send("\n Humidity (in percentage) ="+str(humidity))
     await message.channel.send("\n Description ="+str(description))
